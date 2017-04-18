@@ -18,7 +18,7 @@ ImageList.prototype.renderImageList = function(){
   }
   secondImageIndex = firstImageIndex + 1;
   thirdImageIndex = firstImageIndex + 2;
-
+console.log(firstImageIndex);
   var image1 = this.items[firstImageIndex];
   var image2 = this.items[secondImageIndex];
   var image3 = this.items[thirdImageIndex];
@@ -31,7 +31,7 @@ ImageList.prototype.renderImageList = function(){
   return selectImages;
 };
  function renderRandomImages(ImageList){
-   
+
  }
 var imgArray = [];
 var imgSrcArray = [

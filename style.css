@@ -1,4 +1,26 @@
-#first-test {
-  height:300px;
-  width:100px;
+* {
+  margin:0;
+  padding:0;
+  width:100%;
+  box-sizing: border-box;
+}
+
+html,body {
+  height: 100%;
+  background: beige;
+}
+
+
+#container{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#container img {
+  flex: 1;
+  margin: 20px;
+  width: 200px;
 }

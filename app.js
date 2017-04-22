@@ -1,127 +1,58 @@
 'use strict';
 
-function Photo(name,filename){
+var main = document.getElementById('main');
+var count = 0;
+function Photo (name, filename){
   this.name = name;
   this.filename = './img/' + filename;
   this.clickCount = 0;
   this.displayCount = 0;
 }
 
-Photo.prototype.shown = function(){
-  this.displayCount = this.displayCount + 1;
-};
-
-Photo.prototype.onclick = function(){
-  this.clickCount = this.clickCount + 1;
-  renderThreePhotos(getThreeRandomPhotos());
-};
-
-var count = -1;
 var photosOnSecondToLastScreen = [];
 var photosOnPreviousScreen = [];
 var photosOnScreen = [];
 var photos = [
-  new Photo ('bag', 'bag.jpg'),
-  new Photo ('banana', 'banana.jpg'),
-  new Photo ('bathroom', 'bathroom.jpg'),
-  new Photo ('boots', 'boots.jpg'),
-  new Photo ('breakfast', 'breakfast.jpg'),
+  new Photo ('r2d2 bag', 'bag.jpg'),
+  new Photo ('banana slicer', 'banana.jpg'),
+  new Photo ('ipad toilet paper stand', 'bathroom.jpg'),
+  new Photo ('yellow boots', 'boots.jpg'),
+  new Photo ('all in one breakfast', 'breakfast.jpg'),
+  new Photo ('meatball bubblegum', 'bubblegum.jpg'),
+  new Photo ('red chair', 'chair.jpg'),
+  new Photo ('dark lord cthulhu', 'cthulhu.jpg'),
+  new Photo ('dog duck', 'dog-duck.jpg'),
+  new Photo ('dragon meat', 'dragon.jpg'),
+  new Photo ('fork pen', 'pen.jpg'),
+  new Photo ('pet sweepers', 'pet-sweep.jpg'),
+  new Photo ('pizza scissors', 'scissors.jpg'),
+  new Photo ('shark sleeping bag', 'shark.jpg'),
+  new Photo ('baby sweepers', 'sweep.png'),
+  new Photo ('star wars sleeping bag', 'tauntaun.jpg'),
+  new Photo ('unicorn meat', 'unicorn.jpg'),
+  new Photo ('usb tentacle', 'usb.gif'),
+  new Photo ('water can','water-can.jpg'),
+  new Photo ('cool wine glass','wine-glass.jpg'),
 
-  new Photo ('bubblegum', 'bubblegum.jpg'),
-  new Photo ('chair', 'chair.jpg'),
-  new Photo ('cthulhu', 'cthulhu.jpg'),
-  new Photo ('dog-duck', 'dog-duck.jpg'),
-  new Photo ('dragon', 'dragon.jpg'),
-
-  new Photo ('pen', 'pen.jpg'),
-  new Photo ('pet-sweep', 'pet-sweep.jpg'),
-  new Photo ('scissors', 'scissors.jpg'),
-  new Photo ('shark', 'shark.jpg'),
-  new Photo ('sweep', 'sweep.png'),
-
-  new Photo ('tauntaun', 'tauntaun.jpg'),
-  new Photo ('unicorn', 'unicorn.jpg'),
-  new Photo ('usb', 'usb.gif'),
-  new Photo ('water-can', 'water-can.jpg'),
-  new Photo ('wine-glass', 'wine-glass.jpg'),
 ];
+
 function getRandomIndex(list){
   return Math.floor (Math.random() * list.length);
 }
 
 function getThreeRandomPhotos(){
-
   photosOnSecondToLastScreen = photosOnPreviousScreen;
   photosOnPreviousScreen = photosOnScreen;
   photosOnScreen = [];
-
-  var noNoPhotos = photosOnPreviousScreen.concat(photosOnSecondToLastScreen);
-  var indexes = [getRandomIndex(photos), getRandomIndex(photos), getRandomIndex(photos)];
-
-  for(var i = 0; i < indexes.length; i++) {
-    var isUnique = false;
-    while(!isUnique) {
-      if(noNoPhotos.indexOf(photos[indexes[i]]) > -1) {
-        indexes[i] = getRandomIndex(photos);
-      } else {
-        isUnique = true;
-      }
-    }
-
-  }
-
-
-  var nextPhoto = photos.slice(indexes[0], indexes[0] + 1);
-  nextPhoto[0].shown();
+  var nextPhoto = photos.splice(getRandomIndex(photos), 1);
   photosOnScreen = photosOnScreen.concat(nextPhoto);
-  nextPhoto = photos.slice(indexes[1], indexes[1] + 1);
-  nextPhoto[0].shown();
+  nextPhoto = photos.splice(getRandomIndex(photos), 1);
   photosOnScreen = photosOnScreen.concat(nextPhoto);
-  nextPhoto = photos.slice(indexes[2], indexes[2] + 1);
-  nextPhoto[0].shown();
+  nextPhoto = photos.splice(getRandomIndex(photos), 1);
   photosOnScreen = photosOnScreen.concat(nextPhoto);
-
-  return photosOnScreen;
 }
 
-
-function renderThreePhotos(threeImages) {
-  if(count >= 25) {
-
-
-    alert('done');
-
-
-  } else {
-    var container = document.createElement('div');
-    container.setAttribute('id', 'container');
-
-    for (var i = 0; i < threeImages.length; i++){
-      var img = document.createElement('img');
-      img.setAttribute('src', threeImages[i].filename);
-      img.setAttribute('id', i);
-      container.appendChild(img);
-    }
-
-    var curContainer = document.getElementById('container');
-    if(curContainer) {
-      document.body.removeChild(curContainer);
-    }
-
-    document.body.appendChild(container);
-
-
-    for (i = 0; i < threeImages.length;i++){
-      img = document.getElementById(i);
-      img.addEventListener('click', threeImages[i].onclick.bind(threeImages[i]));
-
-    }
-
-
-    count++;
-  }
+function handlePhotoClick(event){
+  var image = event.target;
+  var photosOnScreenIndex = image.getAttribute()
 }
-
-
-
-renderThreePhotos(getThreeRandomPhotos());

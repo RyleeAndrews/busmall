@@ -1,11 +1,10 @@
 'use strict';
 
-var main = document.getElementById('main');
 var count = 0;
 function Photo (name, filename){
   this.name = name;
-  this.filename = './img/' + filename;
-  this.clickCount = 0;
+  this.src = './img/' + filename;
+  this.clickAmount = 0;
   this.displayCount = 0;
 }
 
@@ -35,24 +34,22 @@ var photos = [
   new Photo ('cool wine glass','wine-glass.jpg'),
 
 ];
-
 function getRandomIndex(list){
   return Math.floor (Math.random() * list.length);
 }
 
-function getThreeRandomPhotos(){
+function getThreeNewPhotos(){
+  var el;
+  photos = photos.concat(photosOnSecondToLastScreen);
   photosOnSecondToLastScreen = photosOnPreviousScreen;
   photosOnPreviousScreen = photosOnScreen;
   photosOnScreen = [];
-  var nextPhoto = photos.splice(getRandomIndex(photos), 1);
-  photosOnScreen = photosOnScreen.concat(nextPhoto);
-  nextPhoto = photos.splice(getRandomIndex(photos), 1);
-  photosOnScreen = photosOnScreen.concat(nextPhoto);
-  nextPhoto = photos.splice(getRandomIndex(photos), 1);
-  photosOnScreen = photosOnScreen.concat(nextPhoto);
-}
+  for (var i = 0; i < 3; i++){
+      var nextPhoto = photosOnScreen.splice(getRandomIndex(photos), 1);
+      photosOnScreen = photosOnScreen.concat(nextPhoto);
+      el = document.getElementById('' + i);
 
-function handlePhotoClick(event){
-  var image = event.target;
-  var photosOnScreenIndex = image.getAttribute()
+      el.src = nextPhoto[0].src;
+      nextPhoto[0].displayCount++;
+  }
 }

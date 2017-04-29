@@ -7,20 +7,24 @@
 
 html,body {
   height: 100%;
-  background: beige;
+  background: #61CCFF;
 }
 
-
-#container{
-  position: relative;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
+#main img {
+  display:inline-block;
+  width:33%;
+  height:300px;
+  border: 1px solid black;
 }
-
-#container img {
-  flex: 1;
-  margin: 20px;
-  width: 200px;
+h1 {
+  text-align: center;
+  color: #103233;
+  margin-top: 100px;
+}
+ul {
+  text-align: center;
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color:white;
 }

@@ -1,5 +1,5 @@
 'use strict';
-
+var main = document.getElementById('main');
 var count = 0;
 function Photo (name, filename){
   this.name = name;
@@ -45,11 +45,37 @@ function getThreeNewPhotos(){
   photosOnPreviousScreen = photosOnScreen;
   photosOnScreen = [];
   for (var i = 0; i < 3; i++){
-      var nextPhoto = photosOnScreen.splice(getRandomIndex(photos), 1);
-      photosOnScreen = photosOnScreen.concat(nextPhoto);
-      el = document.getElementById('' + i);
+    var nextPhoto = photos.splice(getRandomIndex(photos), 1);
+    photosOnScreen = photosOnScreen.concat(nextPhoto);
 
-      el.src = nextPhoto[0].src;
-      nextPhoto[0].displayCount++;
+
+    el = document.getElementById('' + i);
+
+    el.src = nextPhoto[0].src;
+    photos[i].displayCount++;
   }
 }
+function finalList(){
+  var photosUl = document.createElement('ul');
+  for(var i = 0; i < photos.length;i++){
+    photosUl = document.createElement('ul');
+    photosUl.textContent = photos[i].clickAmount + ' votes for ' + photos[i].name;
+    main.appendChild(photosUl);
+  }
+}
+
+
+main.addEventListener('click',handleClick);
+function handleClick(event){
+  photosOnScreen[event.target.id].clickAmount++;
+  count++;
+
+  if(count===25){
+    main.textContent = '';
+    finalList();
+  }else {
+    getThreeNewPhotos();
+
+  }
+}
+getThreeNewPhotos();

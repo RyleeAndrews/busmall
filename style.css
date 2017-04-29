@@ -1,4 +1,30 @@
-#first-test {
+* {
+  margin:0;
+  padding:0;
+  width:100%;
+  box-sizing: border-box;
+}
+
+html,body {
+  height: 100%;
+  background: #61CCFF;
+}
+
+#main img {
+  display:inline-block;
+  width:33%;
   height:300px;
-  width:100px;
+  border: 1px solid black;
+}
+h1 {
+  text-align: center;
+  color: #103233;
+  margin-top: 100px;
+}
+ul {
+  text-align: center;
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color:white;
 }

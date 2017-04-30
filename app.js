@@ -75,14 +75,16 @@ function finalList(){
 
 main.addEventListener('click',handleClick);
 function handleClick(event){
-  photosOnScreen[event.target.id].clickAmount++;
-  count++;
-  if(count===25){
-    main.textContent = '';
-    finalList();
-  }else {
-    getThreeNewPhotos();
+  if(event.target.tagName == "IMG") {
+    photosOnScreen[event.target.id].clickAmount++;
+    count++;
+    if(count===25){
+      main.textContent = '';
+      finalList();
+    }else {
+      getThreeNewPhotos();
 
+    }
   }
 }
 getThreeNewPhotos();

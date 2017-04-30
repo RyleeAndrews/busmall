@@ -32,7 +32,6 @@ var photos = [
   new Photo ('water can','water-can.jpg'),
   new Photo ('cool wine glass','wine-glass.jpg'),
 ];
-localStorage.setItem('photos',JSON.stringify(photos));
 function getRandomIndex(list){
   return Math.floor (Math.random() * list.length);
 }

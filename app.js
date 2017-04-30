@@ -7,7 +7,6 @@ function Photo (name, filename){
   this.clickAmount = 0;
   this.displayCount = 0;
 }
-
 var photosOnSecondToLastScreen = [];
 var photosOnPreviousScreen = [];
 var photosOnScreen = [];
@@ -38,21 +37,30 @@ function getRandomIndex(list){
   return Math.floor (Math.random() * list.length);
 }
 
+function getRandomPhoto(list){
+  var randomIndex = getRandomIndex(list);
+  var noNoPhotos = photosOnPreviousScreen.concat(photosOnSecondToLastScreen).concat(photosOnScreen);
+  var photo = list[randomIndex];
+  if(noNoPhotos.indexOf(photo) > -1) {
+    return getRandomPhoto(list);
+  } else {
+    return photo;
+  }
+}
+
 function getThreeNewPhotos(){
   var el;
-  photos = photos.concat(photosOnSecondToLastScreen);
   photosOnSecondToLastScreen = photosOnPreviousScreen;
   photosOnPreviousScreen = photosOnScreen;
   photosOnScreen = [];
   for (var i = 0; i < 3; i++){
-    var nextPhoto = photos.splice(getRandomIndex(photos), 1);
+    var nextPhoto = getRandomPhoto(photos);
     photosOnScreen = photosOnScreen.concat(nextPhoto);
-
 
     el = document.getElementById('' + i);
 
-    el.src = nextPhoto[0].src;
-    photos[i].displayCount++;
+    el.src = nextPhoto.src;
+    nextPhoto.displayCount++;
   }
 }
 function finalList(){
@@ -69,7 +77,6 @@ main.addEventListener('click',handleClick);
 function handleClick(event){
   photosOnScreen[event.target.id].clickAmount++;
   count++;
-
   if(count===25){
     main.textContent = '';
     finalList();
@@ -79,3 +86,15 @@ function handleClick(event){
   }
 }
 getThreeNewPhotos();
+/*var canvas = document.getElementById('chart-canvas');
+
+var ctx = canvas.getContext('2d');
+
+var myChart = new Chart(ctx,{
+  type: 'bar',
+  data: {
+    labels: ['bob', 'jim'],
+  }
+
+
+});*/

@@ -63,24 +63,16 @@ function getThreeNewPhotos(){
     nextPhoto.displayCount++;
   }
 }
-function finalList(){
-  var photosUl = document.createElement('ul');
-  for(var i = 0; i < photos.length;i++){
-    photosUl = document.createElement('ul');
-    photosUl.textContent = photos[i].clickAmount + ' votes for ' + photos[i].name;
-    main.appendChild(photosUl);
-  }
-}
-
 
 main.addEventListener('click',handleClick);
 function handleClick(event){
-  if(event.target.tagName == "IMG") {
+  if(event.target.tagName == 'IMG') {
     photosOnScreen[event.target.id].clickAmount++;
     count++;
     if(count===25){
       main.textContent = '';
-      finalList();
+      renderChart();
+
     }else {
       getThreeNewPhotos();
 
@@ -88,15 +80,51 @@ function handleClick(event){
   }
 }
 getThreeNewPhotos();
-/*var canvas = document.getElementById('chart-canvas');
+function renderChart(){
+  photos = photos.concat(photosOnScreen);
+  photos = photos.concat(photosOnPreviousScreen);
+  photos = photos.concat(photosOnSecondToLastScreen);
 
-var ctx = canvas.getContext('2d');
+  main.textContent = '';
 
-var myChart = new Chart(ctx,{
-  type: 'bar',
-  data: {
-    labels: ['bob', 'jim'],
+  var canvas = document.createElement('canvas');
+  canvas.width = main.clientWidth;
+  canvas.height = main.clientWidth;
+  main.appendChild(canvas);
+
+  var ctx = canvas.getContext('2d');
+  ctx.fillRect(0, 0, 50, 50);
+
+  var data = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Click Amount',
+        backgroundColor:'#D80033 ',
+        borderColor: '#002F32 ',
+        borderWidth: 1.5,
+        data: [],
+      },
+      {
+        label: 'Display Count',
+        backgroundColor: '#61A607 ',
+        borderColor: '#002F32 ',
+        borderWidth: 1.5,
+        data: [],
+      },
+    ],
+  };
+
+  var chartPhoto;
+  for(var i=0; i< photos.length; i++){
+    chartPhoto = photos[i];
+    data.labels.push(chartPhoto.name);
+    data.datasets[0].data.push(chartPhoto.clickAmount);
+    data.datasets[1].data.push(chartPhoto.displayCount);
   }
 
-
-});*/
+  new Chart(ctx, {
+    type: 'bar',
+    data: data,
+  });
+}

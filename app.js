@@ -31,8 +31,8 @@ var photos = [
   new Photo ('usb tentacle', 'usb.gif'),
   new Photo ('water can','water-can.jpg'),
   new Photo ('cool wine glass','wine-glass.jpg'),
-
 ];
+localStorage.setItem('photos',JSON.stringify(photos));
 function getRandomIndex(list){
   return Math.floor (Math.random() * list.length);
 }
@@ -63,7 +63,6 @@ function getThreeNewPhotos(){
     nextPhoto.displayCount++;
   }
 }
-
 main.addEventListener('click',handleClick);
 function handleClick(event){
   if(event.target.tagName == 'IMG') {
@@ -100,15 +99,15 @@ function renderChart(){
     datasets: [
       {
         label: 'Click Amount',
-        backgroundColor:'#D80033 ',
-        borderColor: '#002F32 ',
+        backgroundColor:'#D80033',
+        borderColor: '#002F32',
         borderWidth: 1.5,
         data: [],
       },
       {
         label: 'Display Count',
-        backgroundColor: '#61A607 ',
-        borderColor: '#002F32 ',
+        backgroundColor: '#61A607',
+        borderColor: '#002F32',
         borderWidth: 1.5,
         data: [],
       },

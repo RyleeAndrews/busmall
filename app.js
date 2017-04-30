@@ -119,6 +119,7 @@ function renderChart(){
     data.labels.push(chartPhoto.name);
     data.datasets[0].data.push(chartPhoto.clickAmount);
     data.datasets[1].data.push(chartPhoto.displayCount);
+    localStorage.setItem('photos',JSON.stringify(photos));
   }
 
   new Chart(ctx, {
